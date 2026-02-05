@@ -4,7 +4,7 @@ import MessageForm from "@/components/MessageForm";
 import ResponsePanel from "@/components/ResponsePanel";
 
 const WEBHOOK_URL =
-  "https://princepatel.app.n8n.cloud/webhook/YOURMESSAGE";
+  "https://princepatel.app.n8n.cloud/webhook-test/YOURMESSAGE";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
