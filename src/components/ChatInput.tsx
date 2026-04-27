@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Send, Loader2, Settings2 } from "lucide-react";
 
 interface ChatInputProps {
   onSubmit: (data: Record<string, string>) => void;
   isLoading: boolean;
+  prefill?: { text: string; key: number } | null;
 }
 
-const ChatInput = ({ onSubmit, isLoading }: ChatInputProps) => {
+const ChatInput = ({ onSubmit, isLoading, prefill }: ChatInputProps) => {
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if (prefill?.text) setMessage(prefill.text);
+  }, [prefill]);
   const [userId, setUserId] = useState("");
   const [timezone, setTimezone] = useState(
     Intl.DateTimeFormat().resolvedOptions().timeZone
