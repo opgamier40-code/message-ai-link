@@ -19,6 +19,7 @@ const formatTime = () =>
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [prefill, setPrefill] = useState<{ text: string; key: number } | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
