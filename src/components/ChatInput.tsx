@@ -4,10 +4,15 @@ import { Send, Loader2, Settings2 } from "lucide-react";
 interface ChatInputProps {
   onSubmit: (data: Record<string, string>) => void;
   isLoading: boolean;
+  prefill?: string;
 }
 
-const ChatInput = ({ onSubmit, isLoading }: ChatInputProps) => {
+const ChatInput = ({ onSubmit, isLoading, prefill }: ChatInputProps) => {
   const [message, setMessage] = useState("");
+
+  // Sync prefill from parent
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useState(() => {});
   const [userId, setUserId] = useState("");
   const [timezone, setTimezone] = useState(
     Intl.DateTimeFormat().resolvedOptions().timeZone
