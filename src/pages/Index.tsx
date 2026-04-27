@@ -150,18 +150,20 @@ const Index = () => {
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full max-w-xl">
                 {[
-                  { icon: Calendar, label: "Schedule a meeting", hint: "for tomorrow at 3pm" },
-                  { icon: Mail, label: "Send an email", hint: "to my team" },
-                  { icon: FileSpreadsheet, label: "Update a sheet", hint: "with new entries" },
-                ].map(({ icon: Icon, label, hint }) => (
-                  <div
+                  { icon: Calendar, label: "Schedule a meeting", hint: "for tomorrow at 3pm", prompt: "Schedule a meeting for tomorrow at 3pm" },
+                  { icon: Mail, label: "Send an email", hint: "to my team", prompt: "Send an email to my team" },
+                  { icon: FileSpreadsheet, label: "Update a sheet", hint: "with new entries", prompt: "Update my spreadsheet with new entries" },
+                ].map(({ icon: Icon, label, hint, prompt }) => (
+                  <button
                     key={label}
-                    className="rounded-xl border border-border bg-card/50 p-3 text-left hover:bg-card transition-colors"
+                    type="button"
+                    onClick={() => setPrefill({ text: prompt, key: Date.now() })}
+                    className="rounded-xl border border-border bg-card/50 p-3 text-left hover:bg-card hover:border-primary/40 transition-colors"
                   >
                     <Icon className="h-4 w-4 text-primary mb-2" />
                     <div className="text-xs font-medium text-foreground">{label}</div>
                     <div className="text-[11px] text-muted-foreground mt-0.5">{hint}</div>
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>
