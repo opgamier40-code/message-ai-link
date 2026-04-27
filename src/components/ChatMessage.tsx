@@ -1,4 +1,5 @@
-import { Bot, User } from "lucide-react";
+import { Bot, User, Copy, Check } from "lucide-react";
+import { useState } from "react";
 
 interface ChatMessageProps {
   role: "user" | "ai";
@@ -8,6 +9,17 @@ interface ChatMessageProps {
 
 const ChatMessage = ({ role, content, timestamp }: ChatMessageProps) => {
   const isUser = role === "user";
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(content);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      // ignore
+    }
+  };
 
   return (
     <div className={`flex gap-2.5 ${isUser ? "flex-row-reverse" : "flex-row"} animate-fade-in`}>
@@ -22,7 +34,7 @@ const ChatMessage = ({ role, content, timestamp }: ChatMessageProps) => {
       </div>
       <div className={`flex flex-col gap-1 max-w-[78%] ${isUser ? "items-end" : "items-start"}`}>
         <div
-          className={`rounded-2xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap shadow-sm ${
+          className={`group relative rounded-2xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap shadow-sm ${
             isUser
               ? "bg-primary text-primary-foreground rounded-tr-sm"
               : "bg-card border border-border text-foreground rounded-tl-sm"
@@ -30,9 +42,30 @@ const ChatMessage = ({ role, content, timestamp }: ChatMessageProps) => {
         >
           {content}
         </div>
-        {timestamp && (
-          <span className="text-[10px] text-muted-foreground px-1">{timestamp}</span>
-        )}
+        <div className="flex items-center gap-2 px-1">
+          {timestamp && (
+            <span className="text-[10px] text-muted-foreground">{timestamp}</span>
+          )}
+          {!isUser && (
+            <button
+              onClick={handleCopy}
+              aria-label="Copy reply"
+              className="inline-flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors rounded px-1 py-0.5 hover:bg-secondary/60"
+            >
+              {copied ? (
+                <>
+                  <Check className="h-3 w-3" />
+                  Copied
+                </>
+              ) : (
+                <>
+                  <Copy className="h-3 w-3" />
+                  Copy
+                </>
+              )}
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
