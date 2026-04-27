@@ -171,7 +171,7 @@ const Index = () => {
         </div>
       </div>
 
-      <ChatInput onSubmit={handleSubmit} isLoading={isLoading} />
+      <ChatInput onSubmit={handleSubmit} isLoading={isLoading} prefill={prefill} />
     </div>
   );
 };
